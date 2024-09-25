@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO, StringIO
 import re
-
+import xlsxwriter
 # Function to add a serial number column to DataFrame
 def add_serial_number_column(df):
     # Remove duplicates of 'sr. no.' if present
@@ -194,7 +194,8 @@ def preprocess_zoho_file_with_selection(file):
         selected_df.columns = ['name of the deductor', 'tds of the current fin. year', 'total amount']
 
         # Convert 'name of the deductor' column values to uppercase for uniformity
-        selected_df['name of the deductor'] = selected_df['name of the deductor'].str.upper()
+        selected_df['name of the deductor'] = selected_df['name of the deductor'].astype(str).str.upper()
+
         # Convert 'tds of the current fin. year' column to numeric, handling any conversion errors
         selected_df['tds of the current fin. year'] = pd.to_numeric(selected_df['tds of the current fin. year'], errors='coerce')
         # selected_df['total amount'] = pd.to_numeric(selected_df['total amount'], errors='coerce')
